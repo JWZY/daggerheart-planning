@@ -138,3 +138,11 @@ Traditional Tarot reimagined using plant biology and natural phenomena.
 | **XIX. The Sun** | **The Sun** | Joy, success, vitality |
 | **XX. Judgment** | **The Harvest** | Assessment, reaping what was sown, awakening |
 | **XXI. The World** | **The World** | Completion, wholeness, the interconnected web |
+
+---
+
+## TL;DR – Exile Oracle from a Broken Dream
+
+Sylvari seer, cut off from the Dream of Dreams. 
+Preparing a ceremony with new-found allies to grow a Grove on this barren world. 
+If the Grove thrives, it becomes a living beacon to reconnect to the Mother Tree and rewrite the Dream with the stories of exiles and outcasts.
