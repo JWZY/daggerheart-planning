@@ -39,7 +39,7 @@
     *   "What is for dinner?" (Cooking check?)
 *   **NPC Moments:**
     *   **Finley:** Is loudly complaining about the lack of a feather bed. Needs someone to help him set up his "luxury" tent.
-    *   **Nellie:** Offers a salve for any scratches from the fight. asks about everyone's medical history.
+    *   **Nellie:** Offers a salve for any scratches from the fight. Asks about everyone's medical history.
     *   **Vinos:** Is just chilling, maybe playing a small instrument.
 
 ## Scene 5: The Next Morning (The Cliffhanger)
