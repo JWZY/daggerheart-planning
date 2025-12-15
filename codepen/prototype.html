@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glass Effect Prototype</title>
+    <link rel="stylesheet" href="codepen.css">
+    <style>
+        body {
+            background-color: #0f172a; /* slate-950 */
+            background-image: url('../bonetop/img/bonetop-splash.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            display: flex;
+            gap: 4rem;
+            align-items: flex-start;
+            padding: 2rem;
+            z-index: 10;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .column {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            color: #e2e8f0;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            background: rgba(0,0,0,0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            backdrop-filter: blur(4px);
+        }
+
+        /* 
+           Option A: The "Exact" Adaptation 
+           This includes the pseudo-elements for the rim and shimmer
+        */
+        .glass-panel-real {
+            position: relative;
+            width: 300px;
+            padding: 24px;
+            
+            /* Base Button Styling */
+            background: linear-gradient(
+                -75deg,
+                rgba(255, 255, 255, 0.05),
+                rgba(255, 255, 255, 0.2),
+                rgba(255, 255, 255, 0.05)
+            );
+            border-radius: 24px; /* Modified from 999vw */
+            box-shadow: 
+                inset 0 0.125em 0.125em rgba(0, 0, 0, 0.05),
+                inset 0 -0.125em 0.125em rgba(255, 255, 255, 0.5),
+                0 0.25em 0.125em -0.125em rgba(0, 0, 0, 0.2),
+                0 0 0.1em 0.25em inset rgba(255, 255, 255, 0.2),
+                0 0 0 0 rgba(255, 255, 255, 1);
+            
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            
+            /* Variables for gradients (static values for now) */
+            --angle-1: -75deg;
+            --angle-2: -45deg;
+            --border-width: 2px;
+            
+            /* Enable Houdini API for smooth gradient animation if supported, fallback to simple transition */
+            cursor: pointer;
+        }
+
+        /* 
+           Crucial: We need to register properties in CSS for them to animate 
+           Use @property if browser supports it, but standard CSS transition works well for opacity/transform
+           The angles require @property to animate smoothly.
+        */
+        @property --angle-1 {
+            syntax: "<angle>";
+            inherits: false;
+            initial-value: -75deg;
+        }
+          
+        @property --angle-2 {
+            syntax: "<angle>";
+            inherits: false;
+            initial-value: -45deg;
+        }
+
+        /* The Metallic Rim (pseudo-element) */
+        .glass-panel-real::after {
+            content: "";
+            position: absolute;
+            z-index: 1;
+            inset: 0;
+            border-radius: 24px; /* Match parent */
+            
+            /* Positioned outside to form border */
+            width: calc(100% + var(--border-width));
+            height: calc(100% + var(--border-width));
+            top: calc(0% - var(--border-width) / 2);
+            left: calc(0% - var(--border-width) / 2);
+            padding: var(--border-width);
+            box-sizing: border-box;
+            
+            /* The Conic Gradient Rim */
+            background: conic-gradient(
+                from var(--angle-1) at 50% 50%,
+                rgba(0, 0, 0, 0.5),
+                rgba(0, 0, 0, 0) 5% 40%,
+                rgba(0, 0, 0, 0.5) 50%,
+                rgba(0, 0, 0, 0) 60% 95%,
+                rgba(0, 0, 0, 0.5)
+            ),
+            linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5));
+            
+            /* Masking to only show the border */
+            mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            mask-composite: exclude;
+            
+            /* Inner shadow on the rim itself */
+            box-shadow: inset 0 0 0 calc(var(--border-width) / 2) rgba(255, 255, 255, 0.5);
+            pointer-events: none;
+        }
+
+        /* The Shimmer Overlay (inner container) */
+        .glass-panel-content-layer {
+            position: relative;
+            z-index: 2; /* Above the rim */
+        }
+        
+        /* Simulating button span::after for the shimmer */
+        .glass-panel-real .shimmer-layer {
+            content: "";
+            display: block;
+            position: absolute;
+            z-index: 3;
+            width: calc(100% - var(--border-width));
+            height: calc(100% - var(--border-width));
+            top: calc(0% + var(--border-width) / 2);
+            left: calc(0% + var(--border-width) / 2);
+            box-sizing: border-box;
+            border-radius: 24px;
+            overflow: clip;
+            
+            /* The Shimmer Gradient */
+            background: linear-gradient(
+                var(--angle-2),
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.5) 40% 50%,
+                rgba(255, 255, 255, 0) 55%
+            );
+            
+            mix-blend-mode: screen;
+            pointer-events: none;
+            background-size: 200% 200%;
+            background-position: 0% 50%;
+            background-repeat: no-repeat;
+        }
+
+        /* Hover Effects for Option A */
+        
+        /* 1. Base Container Scaling */
+        .glass-panel-real {
+            transition: all 400ms cubic-bezier(0.25, 1, 0.5, 1); /* var(--anim--hover-time) var(--anim--hover-ease) */
+        }
+        
+        .glass-panel-real:hover {
+            transform: scale(0.98); /* Slightly less scaling than button due to size */
+            backdrop-filter: blur(12px); /* Slightly increased blur on hover */
+            -webkit-backdrop-filter: blur(12px);
+            
+            /* Enhanced Shadow on Hover */
+            box-shadow: inset 0 0.125em 0.125em rgba(0, 0, 0, 0.05),
+                inset 0 -0.125em 0.125em rgba(255, 255, 255, 0.5),
+                0 0.15em 0.05em -0.1em rgba(0, 0, 0, 0.25),
+                0 0 0.05em 0.1em inset rgba(255, 255, 255, 0.5),
+                0 0 0 0 rgba(255, 255, 255, 1);
+        }
+
+        /* 2. Rim Rotation and Gradient Shift */
+        .glass-panel-real::after {
+            transition: all 400ms cubic-bezier(0.25, 1, 0.5, 1), --angle-1 500ms ease;
+        }
+
+        .glass-panel-real:hover::after {
+            --angle-1: -125deg;
+        }
+
+        /* 3. Shimmer Movement */
+        .glass-panel-real .shimmer-layer {
+            transition: background-position 500ms cubic-bezier(0.25, 1, 0.5, 1),
+                        --angle-2 500ms cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .glass-panel-real:hover .shimmer-layer {
+            background-position: 25% 50%;
+        }
+
+        /* 4. Text Shadow Shift */
+        .glass-panel-real h3 {
+            transition: all 400ms cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .glass-panel-real:hover h3 {
+             text-shadow: 0.025em 0.025em 0.025em rgba(0, 0, 0, 0.12);
+        }
+
+        .mock-line {
+            height: 12px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            margin-bottom: 12px;
+            width: 100%;
+        }
+
+
+        /* 
+           Option B: Cleaned Up (Approximation)
+        */
+        .glass-panel-clean {
+            position: relative;
+            width: 300px;
+            padding: 24px;
+            border-radius: 24px;
+            
+            /* High contrast glass */
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+
+            /* The "Thick" look via shadows */
+            box-shadow: 
+                inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
+                inset 0 -1px 0 0 rgba(0, 0, 0, 0.3),
+                inset 0 0 20px rgba(255, 255, 255, 0.02),
+                0 20px 40px -10px rgba(0, 0, 0, 0.5);
+
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-panel-clean h3 {
+            margin: 0 0 1rem 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <div class="column">
+            <h2>Original Button</h2>
+            <div class="button-wrap">
+                <button>
+                <span>Generate</span>
+                </button>
+                <div class="button-shadow"></div>
+            </div>
+        </div>
+
+        <div class="column">
+            <h2>Option A: Truly Exact</h2>
+            <div class="glass-panel-real">
+                <div class="shimmer-layer"></div>
+                <div class="glass-panel-content-layer">
+                    <h3>Sidebar Content</h3>
+                    <div class="mock-line" style="width: 80%"></div>
+                    <div class="mock-line" style="width: 60%"></div>
+                    <div class="mock-line" style="width: 90%"></div>
+                    <div class="mock-line" style="width: 40%"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="column">
+            <h2>Option B: Clean Version</h2>
+            <div class="glass-panel-clean">
+                <h3>Sidebar Content</h3>
+                <div class="mock-line" style="width: 80%"></div>
+                <div class="mock-line" style="width: 60%"></div>
+                <div class="mock-line" style="width: 90%"></div>
+                <div class="mock-line" style="width: 40%"></div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
