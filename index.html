@@ -29,7 +29,7 @@
         <!-- Sidebar (hidden on mobile) -->
         <aside class="hidden md:flex w-80 glass-sidebar flex-col">
             <!-- Header -->
-            <div class="p-6 border-b border-white/5">
+            <div class="p-6 border-b border-white/20">
                 <div class="flex items-center justify-between mb-1">
                     <h1 id="campaign-title" class="text-xl font-bold text-white">Bonetop</h1>
                     <button id="campaign-toggle-btn" onclick="toggleCampaign()" class="hidden px-2 py-1 rounded bg-white/10 hover:bg-white/20 text-lg transition-colors" title="Switch Campaign">
@@ -40,15 +40,15 @@
             </div>
 
             <!-- Search -->
-            <div class="p-4 border-b border-white/5">
+            <div class="p-4 border-b border-white/20">
                 <div class="relative">
                     <input 
                         type="text" 
                         id="searchInput"
                         placeholder="Search content..." 
-                        class="w-full px-4 py-2 bg-slate-800/50 border border-slate-700/50 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-200 placeholder-slate-500"
+                        class="w-full px-4 py-2 bg-slate-800/50 border border-slate-500/50 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-slate-200 placeholder-slate-400"
                     />
-                    <svg class="absolute right-3 top-2.5 w-5 h-5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="absolute right-3 top-2.5 w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                 </div>
@@ -57,10 +57,10 @@
             <!-- Navigation -->
             <nav class="flex-1 overflow-y-auto p-4">
                 <div class="space-y-1">
-                    <div id="resources-header" class="hidden text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3">Campaign Resources</div>
+                    <div id="resources-header" class="hidden text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Campaign Resources</div>
                     <button id="goal-pyramid-nav" onclick="loadMarkdown('goal_pyramid_guide.md')" class="hidden nav-item w-full text-left px-4 py-2 rounded-lg hover:bg-white/5 text-slate-300 hover:text-white transition-colors">
                         <div class="font-medium">Goal Pyramid Guide</div>
-                        <div class="text-xs text-slate-500 mt-0.5">Criteria & Examples</div>
+                        <div class="text-xs text-slate-400 mt-0.5">Criteria & Examples</div>
                     </button>
                     
                     <div id="campaign-nav-container">
@@ -70,8 +70,8 @@
             </nav>
 
             <!-- Footer -->
-            <div class="p-4 border-t border-white/5">
-                <div class="text-xs text-slate-500 text-center">
+            <div class="p-4 border-t border-white/20">
+                <div class="text-xs text-slate-400 text-center">
                     Press <kbd class="px-2 py-1 bg-slate-800/50 rounded text-xs">Ctrl+K</kbd> to search
                 </div>
             </div>
@@ -104,14 +104,14 @@
 
     <!-- Mobile Bottom Bar -->
     <div class="md:hidden fixed bottom-4 left-4 right-4 z-[60]">
-        <div class="mobile-bottom-bar rounded-2xl px-4 py-3 border border-slate-700/50">
+        <div class="mobile-bottom-bar rounded-full px-4 py-3">
             <div class="flex justify-around items-center max-w-sm mx-auto">
                 <button 
                     id="searchButton"
                     onclick="toggleMobileModal('search')" 
                     class="flex flex-col items-center gap-1 px-6 py-2 rounded-xl text-slate-400 hover:text-white active:bg-slate-800/50 transition-all duration-200"
                 >
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
                     <span class="text-xs font-medium">Search</span>
@@ -121,7 +121,7 @@
                     onclick="toggleMobileModal('pages')" 
                     class="flex flex-col items-center gap-1 px-6 py-2 rounded-xl text-slate-400 hover:text-white active:bg-slate-800/50 transition-all duration-200"
                 >
-                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                     </svg>
                     <span class="text-xs font-medium">Pages</span>
@@ -132,7 +132,7 @@
 
     <!-- Mobile Search Modal -->
     <div id="mobileSearchModal" class="mobile-modal fixed inset-0 z-50 hidden flex-col">
-        <div class="flex items-center justify-between p-4 border-b border-slate-700/50">
+        <div class="flex items-center justify-between p-4 border-b border-white/20">
             <h2 class="text-lg font-semibold text-white">Search</h2>
         </div>
         <div class="p-4">
@@ -141,16 +141,16 @@
                     type="text" 
                     id="mobileSearchInput"
                     placeholder="Type to search..." 
-                    class="w-full px-4 py-3 bg-slate-800/50 border border-white/10 rounded-xl text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-slate-500"
+                    class="w-full px-4 py-3 bg-slate-800/90 border border-white/20 rounded-xl text-base focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-slate-400"
                 />
-                <svg class="absolute right-4 top-3.5 w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="absolute right-4 top-3.5 w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
             </div>
         </div>
-        <div id="mobileSearchResults" class="flex-1 overflow-y-auto px-4 pb-24">
-            <div class="text-center py-12 text-slate-500">
-                <svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div id="mobileSearchResults" class="flex-1 overflow-y-auto px-4 pb-24">
+            <div class="text-center py-12 text-slate-400">
+                <svg class="w-12 h-12 mx-auto mb-3 opacity-50 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
                 <p>Start typing to search</p>
@@ -160,13 +160,13 @@
 
     <!-- Mobile Pages Modal -->
     <div id="mobilePagesModal" class="mobile-modal fixed inset-0 z-50 hidden flex-col">
-        <div class="flex items-center justify-between p-4 border-b border-slate-700/50">
+        <div class="flex items-center justify-between p-4 border-b border-white/20">
             <h2 class="text-lg font-semibold text-white">Pages</h2>
         </div>
         <div class="flex-1 overflow-y-auto p-4 pb-24">
             <div id="mobile-resources-section" class="hidden mb-6">
-                <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3 px-2">Campaign Resources</div>
-                <button onclick="loadMarkdownMobile('goal_pyramid_guide.md')" class="page-item w-full text-left px-4 py-4 rounded-xl bg-slate-800/50 border border-white/10 mb-2">
+                <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 px-2">Campaign Resources</div>
+                <button onclick="loadMarkdownMobile('goal_pyramid_guide.md')" class="page-item w-full text-left px-4 py-4 rounded-xl bg-slate-800/50 border border-white/20 mb-2">
                     <div class="font-medium text-white">Goal Pyramid Guide</div>
                     <div class="text-sm text-slate-400 mt-1">Criteria & Examples</div>
                 </button>

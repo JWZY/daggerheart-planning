@@ -156,11 +156,11 @@ function renderNav() {
             const marginTop = (index === 0 && !isDmMode) ? '' : 'mt-6';
             
             return `
-            <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3 ${marginTop}">${section.title}</div>
+            <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 ${marginTop}">${section.title}</div>
             ${visibleItems.map(p => `
                 <button onclick="loadMarkdown('${campaign.basePath}${p.file}')" class="nav-item w-full text-left px-4 py-2 rounded-lg hover:bg-white/5 text-slate-300 hover:text-white transition-colors">
                     <div class="font-medium">${p.name}</div>
-                    <div class="text-xs text-slate-500 mt-0.5">${p.sub}</div>
+                    <div class="text-xs text-slate-400 mt-0.5">${p.sub}</div>
                 </button>
             `).join('')}
         `}).join('');
@@ -175,10 +175,10 @@ function renderNav() {
 
             return `
             <div class="mb-4">
-                <div class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-3 px-2">${section.title}</div>
+                <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3 px-2">${section.title}</div>
                 <div class="space-y-2">
                     ${visibleItems.map(p => `
-                        <button onclick="loadMarkdownMobile('${campaign.basePath}${p.file}')" class="page-item w-full text-left px-4 py-4 rounded-xl bg-slate-800/50 border border-white/10">
+                        <button onclick="loadMarkdownMobile('${campaign.basePath}${p.file}')" class="page-item w-full text-left px-4 py-4 rounded-xl bg-slate-800/50 border border-white/20">
                             <div class="font-medium text-white">${p.name}</div>
                             <div class="text-sm text-slate-400 mt-1">${p.sub}</div>
                         </button>
@@ -310,7 +310,7 @@ async function loadMarkdown(filename) {
                 </svg>
                 <h2 class="text-2xl font-bold text-white mb-2">Error Loading Document</h2>
                 <p class="text-slate-400">Could not load ${filename}</p>
-                <p class="text-sm text-slate-500 mt-2">${error.message}</p>
+                <p class="text-sm text-slate-400 mt-2">${error.message}</p>
             </div>
         `;
     }
@@ -327,7 +327,7 @@ function performSearch(query, targetElement) {
     if (!query) {
         if (targetElement.id === 'mobileSearchResults') {
             targetElement.innerHTML = `
-                <div class="text-center py-12 text-slate-500">
+                <div class="text-center py-12 text-slate-400">
                     <svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
@@ -382,7 +382,7 @@ function performSearch(query, targetElement) {
                 html += `
                     <button 
                         onclick="loadMarkdownFromSearch('${result.file}')" 
-                        class="page-item w-full text-left mb-3 p-4 bg-slate-800/50 rounded-xl border border-white/10"
+                        class="page-item w-full text-left mb-3 p-4 bg-slate-800/50 rounded-xl border border-white/20"
                     >
                         <div class="text-xs text-blue-400 mb-1">${result.file}</div>
                         <div class="text-sm text-slate-300 line-clamp-2">${highlightedLine}</div>
@@ -390,12 +390,12 @@ function performSearch(query, targetElement) {
                 `;
             } else {
                 html += `
-                    <div class="mb-6 p-4 bg-slate-800/50 rounded-lg border border-white/10">
+                    <div class="mb-6 p-4 bg-slate-800/50 rounded-lg border border-white/20">
                         <div class="text-sm text-blue-400 mb-2">${result.file}</div>
                         <div class="mb-2">${highlightedLine}</div>
                         <button 
                             onclick="loadMarkdown('${result.file}')" 
-                            class="text-xs text-slate-500 hover:text-blue-400 transition-colors"
+                            class="text-xs text-slate-400 hover:text-blue-400 transition-colors"
                         >
                             View in document →
                         </button>
@@ -443,22 +443,22 @@ document.getElementById('mobileSearchInput').addEventListener('input', (e) => {
 });
 
 // Store original button content
-const buttonStates = {
+    const buttonStates = {
     search: {
-        icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        icon: `<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
         </svg>`,
         label: 'Search'
     },
     pages: {
-        icon: `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        icon: `<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
         </svg>`,
         label: 'Pages'
     }
 };
 
-const closeIcon = `<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+const closeIcon = `<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
 </svg>`;
 
@@ -508,7 +508,7 @@ function closeModalSilently(type) {
         if (type === 'search') {
             document.getElementById('mobileSearchInput').value = '';
             document.getElementById('mobileSearchResults').innerHTML = `
-                <div class="text-center py-12 text-slate-500">
+                <div class="text-center py-12 text-slate-400">
                     <svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                     </svg>
@@ -566,8 +566,8 @@ function closeMobileModal(type) {
     if (type === 'search') {
         document.getElementById('mobileSearchInput').value = '';
         document.getElementById('mobileSearchResults').innerHTML = `
-            <div class="text-center py-12 text-slate-500">
-                <svg class="w-12 h-12 mx-auto mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="text-center py-12 text-slate-400">
+                <svg class="w-12 h-12 mx-auto mb-3 opacity-50 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                 </svg>
                 <p>Start typing to search</p>

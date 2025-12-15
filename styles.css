@@ -151,28 +151,75 @@ mark {
     border-radius: 2px;
 }
 
-/* Sidebar glass effect */
+/* Sidebar glass effect - Option B "Clean Version" */
 .glass-sidebar {
-    background: rgba(15, 23, 42, 0.6);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    isolation: isolate; /* Create stacking context */
 }
 
-/* Mobile bottom bar */
+/* Background Image Layer */
+.glass-sidebar::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background-image: url('bonetop/img/bonetop-splash.png');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.05;
+}
+
+/* Glass Layer */
+.glass-sidebar::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+
+    /* High contrast glass */
+    background: rgba(30, 41, 59, 0.4);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+
+    /* The "Thick" look via shadows */
+    box-shadow: 
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.3), /* Top white edge (light source) */
+        inset 0 -1px 0 0 rgba(0, 0, 0, 0.3),     /* Bottom dark edge (shadow) */
+        inset 0 0 20px rgba(255, 255, 255, 0.02), /* Subtle inner white glow */
+        0 4px 10px rgba(0, 0, 0, 0.3);
+
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Mobile bottom bar - Option B "Clean Version" */
 .mobile-bottom-bar {
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    background: rgba(15, 23, 42, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+    /* High contrast glass */
+    background: rgba(30, 41, 59, 0.8); /* Slightly more opaque for floating element */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    /* The "Thick" look via shadows */
+    box-shadow: 
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 0 rgba(0, 0, 0, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.02),
+        0 8px 32px 0 rgba(0, 0, 0, 0.36);
+
+    border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Mobile modal */
+/* Mobile modal - Option B "Clean Version" */
 .mobile-modal {
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    background: rgba(15, 23, 42, 0.75);
+    /* High contrast glass */
+    background: rgba(15, 23, 42, 0.8); /* Adjusted opacity for fullscreen feel */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+
+    /* The "Thick" look via shadows (less relevant for fullscreen but keeps consistency) */
+    box-shadow: 
+        inset 0 1px 0 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 0 rgba(0, 0, 0, 0.3),
+        inset 0 0 20px rgba(255, 255, 255, 0.02);
 }
 
 .mobile-modal-enter {
